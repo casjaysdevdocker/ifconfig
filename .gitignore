@@ -1,0 +1,7 @@
+/data/
+/custom.html
+/vendor/
+.vscode/
+/bin/
+# ignore commit message
+.gitcommit
