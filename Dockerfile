@@ -34,5 +34,5 @@ EXPOSE 8080
 WORKDIR /opt/echoip
 VOLUME /opt/echoip/html
 
-HEALTHCHECK CMD ["/usr/local/bin/docker-entrypoint.sh", "healthcheck"]
+HEALTHCHECK --start-period=1m --interval=10m --timeout=3s CMD ["/usr/local/bin/docker-entrypoint.sh", "healthcheck"]
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
