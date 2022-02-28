@@ -14,10 +14,5 @@ Thumbs.db
 # Other
 .installed
 
-/data/
-/custom.html
-/vendor/
-.vscode/
-/bin/
 # ignore commit message
 .gitcommit
