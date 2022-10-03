@@ -1,2 +1,5 @@
 Dockerfile
-Dockerfile.geoip
+Dockerfile.geoip.gitignore
+.gitkeep
+.gitignore
+.node_modules/**
