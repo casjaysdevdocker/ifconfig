@@ -14,7 +14,7 @@ COPY ./html /opt/echoip/html
 COPY ./bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 FROM run
-ARG BUILD_DATE="$(date +'%Y-%m-%d %H:%M')" 
+ARG BUILD_DATE="$(date +'%Y-%m-%d %H:%M')"
 
 LABEL \
   org.label-schema.name="ifconfig" \
@@ -28,7 +28,7 @@ LABEL \
   org.label-schema.vcs-type="Git" \
   org.label-schema.schema-version="1.0" \
   org.label-schema.vendor="CasjaysDev" \
-  maintainer="CasjaysDev <docker-admin@casjaysdev.com>" 
+  maintainer="CasjaysDev <docker-admin@casjaysdev.com>"
 
 EXPOSE 8080
 WORKDIR /opt/echoip
