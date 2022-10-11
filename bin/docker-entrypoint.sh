@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
-
+# Set bash options
+[ -n "$DEBUG" ] && set -x
+set -o pipefail
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 GEOIP="-a /data/GeoLite2-ASN.mmdb -c /data/GeoLite2-City.mmdb -f /data/GeoLite2-Country.mmdb"
 OPTS="-H x-forwarded-for -r -s -p"
 CONFIG="-t /config/web"
