@@ -75,7 +75,7 @@ CONTAINER_IP_ADDRESS="$(ip a 2>/dev/null | grep 'inet' | grep -v '127.0.0.1' | a
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Overwrite variables
 #SERVICE_PORT=""
-SERVICE_NAME="ifconfig"
+SERVICE_NAME="echoip"
 SERVICE_COMMAND="$SERVICE_NAME"
 CONFIG="-t /opt/echoip/html"
 OPTS="-H x-forwarded-for -r -s -p"
