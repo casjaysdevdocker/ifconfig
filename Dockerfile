@@ -37,8 +37,9 @@ RUN set -ex; \
   if [ "${ALPINE_VERSION}" = "edge" ]; then echo "http://dl-cdn.alpinelinux.org/alpine/${ALPINE_VERSION}/testing" >>"/etc/apk/repositories" ; fi ; \
   apk update --update-cache && apk add --no-cache ${PACK_LIST}
 
-RUN ln -sf /opt/echoip/echoip /usr/local/bin/echoip && \
-  sed -i 's|REPLACE_MODIFIED|'$(date +"%y-%m-%d at %H:%M")'|g' /opt/echoip/html/index.html
+RUN ln -sf /opt/echoip/echoip /usr/local/bin/echoip ; \
+  ln -sf /opt/echoip/echoip /usr/local/bin/ifconfig ; \
+  sed -i "s|REPLACE_MODIFIED|$(date +'%Y-%m-%d at %H:%M')|g" /opt/echoip/html/index.html
 
 RUN echo 'Running cleanup' ; \
   rm -Rf /usr/share/doc/* /usr/share/info/* /tmp/* /var/tmp/* ; \
