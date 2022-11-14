@@ -1,4 +1,3 @@
-# Build
 FROM golang:1.15-buster AS src
 
 RUN apt update && apt install -yy git && \
@@ -38,8 +37,7 @@ RUN set -ex; \
   if [ "${ALPINE_VERSION}" = "edge" ]; then echo "http://dl-cdn.alpinelinux.org/alpine/${ALPINE_VERSION}/testing" >>"/etc/apk/repositories" ; fi ; \
   apk update --update-cache && apk add --no-cache ${PACK_LIST}
 
-RUN cp -Rf /usr/local/share/template-files/data/. /opt/echoip/ && \
-  ln -sf /opt/echoip/echoip /usr/local/bin/echoip
+RUN ln -sf /opt/echoip/echoip /usr/local/bin/echoip
 
 RUN echo 'Running cleanup' ; \
   rm -Rf /usr/share/doc/* /usr/share/info/* /tmp/* /var/tmp/* ; \
