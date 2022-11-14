@@ -26,8 +26,8 @@ ENV LANG=en_US.UTF-8 \
   TIMEZONE="${TZ:-$TIMEZONE}" \
   HOSTNAME="casjaysdev-ifconfig"
 
-COPY ./rootfs/. /
 COPY --from=src /go/bin/echoip /opt/echoip/
+COPY ./rootfs/. /
 
 RUN set -ex; \
   rm -Rf "/etc/apk/repositories"; \
@@ -37,7 +37,8 @@ RUN set -ex; \
   if [ "${ALPINE_VERSION}" = "edge" ]; then echo "http://dl-cdn.alpinelinux.org/alpine/${ALPINE_VERSION}/testing" >>"/etc/apk/repositories" ; fi ; \
   apk update --update-cache && apk add --no-cache ${PACK_LIST}
 
-RUN ln -sf /opt/echoip/echoip /usr/local/bin/echoip
+RUN ln -sf /opt/echoip/echoip /usr/local/bin/echoip && \
+  sed -i 's|REPLACE_MODIFIED|'$(date +"%y-%m-%d at %H:%M")'|g' /opt/echoip/html/index.html
 
 RUN echo 'Running cleanup' ; \
   rm -Rf /usr/share/doc/* /usr/share/info/* /tmp/* /var/tmp/* ; \
