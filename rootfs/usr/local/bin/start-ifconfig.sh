@@ -157,7 +157,7 @@ certbot)
   else
     touch "/tmp/$SERVICE_NAME.pid"
     echo "$start_message"
-    __exec_command "$SERVICE_COMMAND" $GEOIP $OPTS $CONFIG || rm -Rf "/tmp/$SERVICE_NAME.pid"
+    cd "/opt/echoip" && __exec_command "$SERVICE_COMMAND" $GEOIP $OPTS $CONFIG || rm -Rf "/tmp/$SERVICE_NAME.pid"
   fi
   ;;
 esac
