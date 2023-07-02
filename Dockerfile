@@ -11,7 +11,7 @@ ARG DEFAULT_DATA_DIR="/usr/local/share/template-files/data"
 ARG DEFAULT_CONF_DIR="/usr/local/share/template-files/config"
 ARG DEFAULT_TEMPLATE_DIR="/usr/local/share/template-files/defaults"
 
-ARG IMAGE_REPO="casjaysdevdocker/alpine"
+ARG IMAGE_REPO="alpine"
 ARG IMAGE_VERSION="latest"
 ARG CONTAINER_VERSION="${IMAGE_VERSION}"
 
