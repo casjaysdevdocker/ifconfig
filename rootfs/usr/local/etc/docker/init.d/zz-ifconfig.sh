@@ -122,6 +122,7 @@ SERVICE_GID="0" # set the group id
 EXEC_CMD_BIN='ifconfig'                                      # command to execute
 EXEC_CMD_ARGS='-H x-forwarded-for -r -s -p '                 # command arguments
 EXEC_CMD_ARGS+='-l $SERVICE_PORT -t /opt/echoip/html '       # command arguments
+EXEC_CMD_ARGS+='--trusted-header CF-Connecting-IP'
 EXEC_CMD_ARGS+='-a /opt/echoip/geoip/GeoLite2-ASN.mmdb '     # command arguments
 EXEC_CMD_ARGS+='-c /opt/echoip/geoip/GeoLite2-City.mmdb '    # command arguments
 EXEC_CMD_ARGS+='-f /opt/echoip/geoip/GeoLite2-Country.mmdb ' # command arguments
