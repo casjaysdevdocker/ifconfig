@@ -28,9 +28,9 @@ FROM golang:1.15-buster AS src
 ENV GO111MODULE=on CGO_ENABLED=0
 WORKDIR /go/src/github.com/mpolden/echoip
 RUN apt update && apt install -yy git
-RUN git clone -q https://github.com/mpolden/echoip /go/src/github.com/mpolden/echoip
-RUN cd /go/src/github.com/mpolden/echoip && make
+RUN git clone -q https://github.com/mpolden/echoip /go/src/github.com/mpolden/echoip && cd /go/src/github.com/mpolden/echoip && make
 
+FROM mpolden/echoip:latest as html
 FROM tianon/gosu:latest AS gosu
 FROM ${IMAGE_REPO}:${DISTRO_VERSION} AS build
 ARG USER
@@ -65,12 +65,13 @@ USER ${USER}
 WORKDIR /root
 
 RUN set -ex ; \
-  echo ""
+  mkdir -p "/opt/echoip"
 
-COPY --from=src /go/bin/echoip /opt/echoip/
 COPY --from=gosu /usr/local/bin/gosu /usr/local/bin/gosu
-COPY ./rootfs/. /
+COPY --from=html /opt/echoip/. /opt/echoip/
+COPY --from=src /go/bin/echoip /opt/echoip/
 COPY ./Dockerfile /root/Dockerfile
+COPY ./rootfs/. /
 
 RUN set -ex ; \
   echo ""
@@ -143,7 +144,7 @@ ARG DISTRO_VERSION
 ARG PHP_VERSION
 
 USER ${USER}
-WORKDIR /root
+WORKDIR /opt/echoip
 
 LABEL maintainer="CasjaysDev <docker-admin@casjaysdev.pro>"
 LABEL org.opencontainers.image.vendor="CasjaysDev"

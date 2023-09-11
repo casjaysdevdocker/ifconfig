@@ -90,7 +90,7 @@ RUN_DIR="/run/ifconfig"       # set scripts pid dir
 LOG_DIR="/data/logs/ifconfig" # set log directory
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set the working dir
-WORK_DIR="" # set working directory
+WORK_DIR="/opt/echoip" # set working directory
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Where to save passwords to
 ROOT_FILE_PREFIX="/config/secure/auth/root" # directory to save username/password for root user
@@ -105,7 +105,7 @@ user_name="${IFCONFIG_USER_NAME:-}"      # normal user name
 user_pass="${IFCONFIG_USER_PASS_WORD:-}" # normal user password
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # port which service is listening on
-SERVICE_PORT=""
+SERVICE_PORT="8080"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # User to use to launch service - IE: postgres
 RUNAS_USER="root" # normally root
@@ -119,13 +119,13 @@ SERVICE_UID="0" # set the user id
 SERVICE_GID="0" # set the group id
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # execute command variables - keep single quotes variables will be expanded later
-EXEC_CMD_BIN='echoip' # command to execute
-EXEC_CMD_ARGS='-t /opt/echoip/html '                                               # command arguments
-EXEC_CMD_ARGS+='-H x-forwarded-for -r -s -p '                                      # command arguments
-EXEC_CMD_ARGS+='-a /opt/echoip/geoip/GeoLite2-ASN.mmdb '                           # command arguments
-EXEC_CMD_ARGS+='-c /opt/echoip/geoip/GeoLite2-City.mmdb '                          # command arguments
-EXEC_CMD_ARGS+='-f /opt/echoip/geoip/GeoLite2-Country.mmdb '                       # command arguments
-EXEC_PRE_SCRIPT=''                        # execute script before
+EXEC_CMD_BIN='ifconfig'                                      # command to execute
+EXEC_CMD_ARGS='-H x-forwarded-for -r -s -p '                 # command arguments
+EXEC_CMD_ARGS+='-l $SERVICE_PORT -t /opt/echoip/html '       # command arguments
+EXEC_CMD_ARGS+='-a /opt/echoip/geoip/GeoLite2-ASN.mmdb '     # command arguments
+EXEC_CMD_ARGS+='-c /opt/echoip/geoip/GeoLite2-City.mmdb '    # command arguments
+EXEC_CMD_ARGS+='-f /opt/echoip/geoip/GeoLite2-Country.mmdb ' # command arguments
+EXEC_PRE_SCRIPT=''                                           # execute script before
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Is this service a web server
 IS_WEB_SERVER="no"
@@ -171,7 +171,7 @@ __update_conf_files() {
   local sysname="${SERVER_NAME:-${FULL_DOMAIN_NAME:-$HOSTNAME}}" # set hostname
 
   # CD into temp to bybass any permission errors
-  cd /tmp || false # lets keep shellcheck happy by adding false
+  #cd /tmp || false # lets keep shellcheck happy by adding false
 
   # delete files
   #__rm ""
