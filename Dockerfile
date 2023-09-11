@@ -11,7 +11,7 @@ ARG DEFAULT_DATA_DIR="/usr/local/share/template-files/data"
 ARG DEFAULT_CONF_DIR="/usr/local/share/template-files/config"
 ARG DEFAULT_TEMPLATE_DIR="/usr/local/share/template-files/defaults"
 
-ARG IMAGE_REPO="alpine"
+ARG IMAGE_REPO="casjaysdev/alpine"
 ARG IMAGE_VERSION="latest"
 ARG CONTAINER_VERSION="${IMAGE_VERSION}"
 
@@ -23,14 +23,7 @@ ARG USER="root"
 ARG DISTRO_VERSION="${IMAGE_VERSION}"
 ARG BUILD_VERSION="${DISTRO_VERSION}"
 
-FROM golang:1.15-buster AS src
-
-ENV GO111MODULE=on CGO_ENABLED=0
-WORKDIR /go/src/github.com/mpolden/echoip
-RUN apt update && apt install -yy git
-RUN git clone -q https://github.com/mpolden/echoip /go/src/github.com/mpolden/echoip && cd /go/src/github.com/mpolden/echoip && make
-
-FROM mpolden/echoip:latest as html
+FROM mpolden/echoip:latest as src
 FROM tianon/gosu:latest AS gosu
 FROM ${IMAGE_REPO}:${DISTRO_VERSION} AS build
 ARG USER
@@ -68,8 +61,7 @@ RUN set -ex ; \
   mkdir -p "/opt/echoip"
 
 COPY --from=gosu /usr/local/bin/gosu /usr/local/bin/gosu
-COPY --from=html /opt/echoip/. /opt/echoip/
-COPY --from=src /go/bin/echoip /opt/echoip/
+COPY --from=src /opt/echoip/. /opt/echoip/
 COPY ./Dockerfile /root/Dockerfile
 COPY ./rootfs/. /
 
