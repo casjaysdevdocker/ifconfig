@@ -28,7 +28,7 @@ FROM golang:1.15-buster AS src
 ENV GO111MODULE=on CGO_ENABLED=0
 WORKDIR /go/src/github.com/mpolden/echoip
 RUN apt update && apt install -yy git
-RUN git clone -q https://github.com/mpolden/echoip /go/src/github.com/mpolden/echoip 
+RUN git clone -q https://github.com/mpolden/echoip /go/src/github.com/mpolden/echoip
 RUN cd /go/src/github.com/mpolden/echoip && make
 
 FROM tianon/gosu:latest AS gosu
