@@ -99,7 +99,7 @@ RUN set -ex ; \
   ln -sf /opt/echoip/echoip /usr/local/bin/echoip ; \
   ln -sf /opt/echoip/echoip /usr/local/bin/ifconfig ; \
   sed -i "s|REPLACE_MODIFIED|$(date +'%Y-%m-%d at %H:%M')|g" /opt/echoip/html/index.html; \
-  bash -c "/tmp/init.sh"
+  bash -c "/tmp/update-geoip-db.sh"
 
 RUN set -ex ; \
   echo 'Running cleanup' ; \

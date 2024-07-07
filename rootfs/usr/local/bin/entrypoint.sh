@@ -9,11 +9,11 @@
 # @@Copyright        :  Copyright: (c) 2023 Jason Hempstead, Casjays Developments
 # @@Created          :  Sunday, Sep 10, 2023 22:52 EDT
 # @@File             :  docker-entrypoint
-# @@Description      :  
+# @@Description      :
 # @@Changelog        :  New script
 # @@TODO             :  Better documentation
-# @@Other            :  
-# @@Resource         :  
+# @@Other            :
+# @@Resource         :
 # @@Terminal App     :  no
 # @@sudo/root        :  no
 # @@Template         :  other/docker-entrypoint
@@ -76,9 +76,9 @@ WWW_ROOT_DIR="" # set default web dir
 DATABASE_DIR="" # set database dir
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Healthcheck variables
-HEALTH_ENABLED="yes" # enable healthcheck [yes/no]
-SERVICES_LIST="tini" # comma seperated list of processes for the healthcheck
-HEALTH_ENDPOINTS=""  # url endpoints: [http://localhost/health,http://localhost/test]
+HEALTH_ENABLED="yes"        # enable healthcheck [yes/no]
+SERVICES_LIST="tini echoip" # comma seperated list of processes for the healthcheck
+HEALTH_ENDPOINTS=""         # url endpoints: [http://localhost/health,http://localhost/test]
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Overwrite variables
 

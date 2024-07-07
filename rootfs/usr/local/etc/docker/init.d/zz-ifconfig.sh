@@ -119,7 +119,7 @@ SERVICE_UID="0" # set the user id
 SERVICE_GID="0" # set the group id
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # execute command variables - keep single quotes variables will be expanded later
-EXEC_CMD_BIN='ifconfig'                                                     # command to execute
+EXEC_CMD_BIN='echoip '                                                      # command to execute
 EXEC_CMD_ARGS='-r -s -p -l :$SERVICE_PORT -H X-Real-IP -H x-forwarded-for ' # command arguments
 EXEC_CMD_ARGS+='-t /opt/echoip/html '                                       # command arguments
 EXEC_CMD_ARGS+='-a /opt/echoip/geoip/GeoLite2-ASN.mmdb '                    # command arguments
