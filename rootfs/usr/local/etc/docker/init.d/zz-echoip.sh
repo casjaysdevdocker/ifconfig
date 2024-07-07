@@ -5,10 +5,10 @@
 # @@Author           :  Jason Hempstead
 # @@Contact          :  jason@casjaysdev.pro
 # @@License          :  LICENSE.md
-# @@ReadME           :  ifconfig.sh --help
+# @@ReadME           :  echoip.sh --help
 # @@Copyright        :  Copyright: (c) 2023 Jason Hempstead, Casjays Developments
 # @@Created          :  Sunday, Sep 10, 2023 22:57 EDT
-# @@File             :  ifconfig.sh
+# @@File             :  echoip.sh
 # @@Description      :
 # @@Changelog        :  New script
 # @@TODO             :  Better documentation
@@ -28,9 +28,9 @@
 # https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html
 [ "$DEBUGGER" = "on" ] && echo "Enabling debugging" && set -o pipefail -x$DEBUGGER_OPTIONS || set -o pipefail
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-printf '%s\n' "# - - - Initializing ifconfig - - - #"
+printf '%s\n' "# - - - Initializing echoip - - - #"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-SERVICE_NAME="ifconfig"
+SERVICE_NAME="echoip"
 SCRIPT_NAME="$(basename "$0" 2>/dev/null)"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 export PATH="/usr/local/etc/docker/bin:/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin"
@@ -73,21 +73,21 @@ PRE_EXEC_MESSAGE=""
 # Set the database root dir
 DATABASE_BASE_DIR="${DATABASE_BASE_DIR:-/data/db}"
 # set the database directory
-DATABASE_DIR="${DATABASE_DIR_IFCONFIG:-/data/db/sqlite}"
+DATABASE_DIR="${DATABASE_DIR_echoip:-/data/db/sqlite}"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set webroot
 WWW_ROOT_DIR="/usr/share/httpd/default"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Default predefined variables
-DATA_DIR="/data/ifconfig"   # set data directory
-CONF_DIR="/config/ifconfig" # set config directory
+DATA_DIR="/data/echoip"   # set data directory
+CONF_DIR="/config/echoip" # set config directory
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # set the containers etc directory
-ETC_DIR="/etc/ifconfig"
+ETC_DIR="/etc/echoip"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-TMP_DIR="/tmp/ifconfig"
-RUN_DIR="/run/ifconfig"       # set scripts pid dir
-LOG_DIR="/data/logs/ifconfig" # set log directory
+TMP_DIR="/tmp/echoip"
+RUN_DIR="/run/echoip"       # set scripts pid dir
+LOG_DIR="/data/logs/echoip" # set log directory
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set the working dir
 WORK_DIR="/opt/echoip" # set working directory
@@ -97,12 +97,12 @@ ROOT_FILE_PREFIX="/config/secure/auth/root" # directory to save username/passwor
 USER_FILE_PREFIX="/config/secure/auth/user" # directory to save username/password for normal user
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # root/admin user info password/random]
-root_user_name="${IFCONFIG_ROOT_USER_NAME:-}" # root user name
-root_user_pass="${IFCONFIG_ROOT_PASS_WORD:-}" # root user password
+root_user_name="${echoip_ROOT_USER_NAME:-}" # root user name
+root_user_pass="${echoip_ROOT_PASS_WORD:-}" # root user password
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Normal user info [password/random]
-user_name="${IFCONFIG_USER_NAME:-}"      # normal user name
-user_pass="${IFCONFIG_USER_PASS_WORD:-}" # normal user password
+user_name="${echoip_USER_NAME:-}"      # normal user name
+user_pass="${echoip_USER_PASS_WORD:-}" # normal user password
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # port which service is listening on
 SERVICE_PORT="80"
@@ -119,10 +119,10 @@ SERVICE_UID="0" # set the user id
 SERVICE_GID="0" # set the group id
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # execute command variables - keep single quotes variables will be expanded later
-EXEC_CMD_BIN='echoip'                                                                                                                                           # command to execute
-EXEC_CMD_ARGS='-r -s -p -l :$SERVICE_PORT -H X-Real-IP -H x-forwarded-for '                                                                                     # command arguments
-EXEC_CMD_ARGS+='-t /opt/echoip/html -a /opt/echoip/geoip/GeoLite2-ASN.mmdb -c /opt/echoip/geoip/GeoLite2-City.mmdb -f /opt/echoip/geoip/GeoLite2-Country.mmdb ' # command arguments
-EXEC_PRE_SCRIPT='sleep 60'                                                                                                                                      # execute script before
+EXEC_CMD_BIN='echoip'                                                                                                                                   # command to execute
+EXEC_CMD_ARGS='-r -s -p -l :$SERVICE_PORT -H X-Real-IP -H x-forwarded-for '                                                                             # command arguments
+EXEC_CMD_ARGS+='-t $WORK_DIR/html -a $WORK_DIR/geoip/GeoLite2-ASN.mmdb -c $WORK_DIR/geoip/GeoLite2-City.mmdb -f $WORK_DIR/geoip/GeoLite2-Country.mmdb ' # command arguments
+EXEC_PRE_SCRIPT='sleep 60'                                                                                                                              # execute script before
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Is this service a web server
 IS_WEB_SERVER="no"
@@ -131,8 +131,8 @@ IS_WEB_SERVER="no"
 IS_DATABASE_SERVICE="no"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Load variables from config
-[ -f "$CONF_DIR/env/ifconfig.script.sh" ] && . "$CONF_DIR/env/ifconfig.script.sh" # Generated by my dockermgr script
-[ -f "$CONF_DIR/env/ifconfig.sh" ] && . "$CONF_DIR/env/ifconfig.sh"               # Overwrite the variabes
+[ -f "$CONF_DIR/env/echoip.script.sh" ] && . "$CONF_DIR/env/echoip.script.sh" # Generated by my dockermgr script
+[ -f "$CONF_DIR/env/echoip.sh" ] && . "$CONF_DIR/env/echoip.sh"               # Overwrite the variabes
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Additional predefined variables
 
@@ -144,7 +144,7 @@ IS_DATABASE_SERVICE="no"
 ADD_APPLICATION_FILES=""
 ADD_APPLICATION_DIRS=""
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-APPLICATION_FILES="$LOG_DIR/ifconfig.log"
+APPLICATION_FILES="$LOG_DIR/echoip.log"
 APPLICATION_DIRS="$RUN_DIR $ETC_DIR $CONF_DIR $LOG_DIR $TMP_DIR"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Additional config dirs - will be Copied to /etc/$name
@@ -193,12 +193,12 @@ __update_conf_files() {
   # define actions
 
   # replace variables
-  # __replace "" "" "$CONF_DIR/ifconfig.conf"
+  # __replace "" "" "$CONF_DIR/echoip.conf"
   # replace variables recursively
   #  __find_replace "" "" "$CONF_DIR"
 
   # custom commands
-  [ -d "/data/ifconfig" ] && cp -Rf "/data/ifconfig/." "/opt/echoip/"
+  [ -d "/data/echoip" ] && cp -Rf "/data/echoip/." "/opt/echoip/"
   sed -i "s|REPLACE_MODIFIED|$(date +'%Y-%m-%d at %H:%M')|g" /opt/echoip/html/index.html
   return $exitCode
 }
@@ -288,14 +288,14 @@ __create_service_env() {
   cat <<EOF | tee -p "/config/env/${SERVICE_NAME:-$SCRIPT_NAME}.sh" &>/dev/null
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # root/admin user info [password/random]
-#ENV_ROOT_USER_NAME="${ENV_ROOT_USER_NAME:-$IFCONFIG_ROOT_USER_NAME}"   # root user name
-#ENV_ROOT_USER_PASS="${ENV_ROOT_USER_NAME:-$IFCONFIG_ROOT_PASS_WORD}"   # root user password
+#ENV_ROOT_USER_NAME="${ENV_ROOT_USER_NAME:-$echoip_ROOT_USER_NAME}"   # root user name
+#ENV_ROOT_USER_PASS="${ENV_ROOT_USER_NAME:-$echoip_ROOT_PASS_WORD}"   # root user password
 #root_user_name="${ENV_ROOT_USER_NAME:-$root_user_name}"                              #
 #root_user_pass="${ENV_ROOT_USER_PASS:-$root_user_pass}"                              #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #Normal user info [password/random]
-#ENV_USER_NAME="${ENV_USER_NAME:-$IFCONFIG_USER_NAME}"                  #
-#ENV_USER_PASS="${ENV_USER_PASS:-$IFCONFIG_USER_PASS_WORD}"             #
+#ENV_USER_NAME="${ENV_USER_NAME:-$echoip_USER_NAME}"                  #
+#ENV_USER_PASS="${ENV_USER_PASS:-$echoip_USER_PASS_WORD}"             #
 #user_name="${ENV_USER_NAME:-$user_name}"                                             # normal user name
 #user_pass="${ENV_USER_PASS:-$user_pass}"                                             # normal user password
 
