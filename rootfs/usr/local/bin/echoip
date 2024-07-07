@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+[ -n "$SERVICE_PORT" ] || SERVICE_PORT="80"
+[ -n "$WORK_DIR" ] || WORK_DIR="/opt/echoip"
+/opt/echoip/echoip -r -s -p -l :$SERVICE_PORT -H X-Real-IP -H x-forwarded-for -t $WORK_DIR/html -a $WORK_DIR/geoip/GeoLite2-ASN.mmdb -c $WORK_DIR/geoip/GeoLite2-City.mmdb -f $WORK_DIR/geoip/GeoLite2-Country.mmdb

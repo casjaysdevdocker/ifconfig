@@ -96,8 +96,7 @@ RUN set -ex ; \
   BASH_CMD="$(type -P bash)" ; [ -f "$BASH_CMD" ] && rm -rf "/bin/sh" && ln -sf "$BASH_CMD" "/bin/sh"
 
 RUN set -ex ; \
-  ln -sf /opt/echoip/echoip /usr/local/bin/echoip ; \
-  ln -sf /opt/echoip/echoip /usr/local/bin/ifconfig ; \
+  ln -sf /opt/echoip/echoip /opt/echoip/ifconfig ; \
   sed -i "s|REPLACE_MODIFIED|$(date +'%Y-%m-%d at %H:%M')|g" /opt/echoip/html/index.html; \
   bash -c "/tmp/update-geoip-db.sh"
 
