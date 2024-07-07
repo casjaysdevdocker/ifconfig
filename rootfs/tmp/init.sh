@@ -39,6 +39,6 @@ trap 'exitCode=${exitCode:-$?};[ -n "$INIT_SH_TEMP_FILE" ] && [ -f "$INIT_SH_TEM
 set -o pipefail
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 for f in GeoLite2-ASN GeoLite2-City GeoLite2-Country; do
-  curl -q -LSsf "https://github.com/P3TERX/GeoLite.mmdb/raw/download/$f.mmdb" -O /opt/echoip/geoip/$f.mmdb
+  curl -q -LSsf "https://github.com/P3TERX/GeoLite.mmdb/raw/download/$f.mmdb" -o "/opt/echoip/geoip/$f.mmdb"
   [ -f "/opt/echoip/geoip/$f.mmdb" ] && echo "Installed $f.mmdb to /opt/echoip/geoip" || exit 10
 done
