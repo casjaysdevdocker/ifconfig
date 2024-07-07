@@ -40,5 +40,5 @@ set -o pipefail
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 for f in GeoLite2-ASN GeoLite2-City GeoLite2-Country; do
   curl -q -LSsf "https://github.com/P3TERX/GeoLite.mmdb/raw/download/$f.mmdb" -O /opt/echoip/geoip/$f.mmdb
-  [ -f "rootfs/opt/echoip/geoip/$f.mmdb" ] && echo "Installed $f.mmdb to /opt/echoip/geoip" || exit 10
+  [ -f "/opt/echoip/geoip/$f.mmdb" ] && echo "Installed $f.mmdb to /opt/echoip/geoip" || exit 10
 done
