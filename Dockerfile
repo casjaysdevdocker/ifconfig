@@ -169,6 +169,7 @@ ENV PHP_VERSION="${PHP_VERSION}"
 ENV CONTAINER_NAME="${IMAGE_NAME}"
 ENV HOSTNAME="casjaysdev-${IMAGE_NAME}"
 ENV USER="${USER}"
+ENV PATH="/opt/echoip:$PATH"
 
 COPY --from=build /. /
 

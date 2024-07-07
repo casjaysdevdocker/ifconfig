@@ -120,13 +120,14 @@ SERVICE_GID="0" # set the group id
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # execute command variables - keep single quotes variables will be expanded later
 EXEC_CMD_BIN='ifconfig'                                      # command to execute
-EXEC_CMD_ARGS='-r -s -p -l :$SERVICE_PORT '                  # command arguments
+EXEC_CMD_ARGS='-r -s -p '                                    # command arguments
+EXEC_CMD_ARGS='-l :$SERVICE_PORT '                           # command arguments
+EXEC_CMD_ARGS+='-H X-Real-IP '                               # command arguments
+EXEC_CMD_ARGS+='-H x-forwarded-for '                         # command arguments
 EXEC_CMD_ARGS+='-a /opt/echoip/geoip/GeoLite2-ASN.mmdb '     # command arguments
 EXEC_CMD_ARGS+='-c /opt/echoip/geoip/GeoLite2-City.mmdb '    # command arguments
 EXEC_CMD_ARGS+='-f /opt/echoip/geoip/GeoLite2-Country.mmdb ' # command arguments
 EXEC_CMD_ARGS+='-t /opt/echoip/html '                        # command arguments
-EXEC_CMD_ARGS+='-H X-Real-IP '                               # command arguments
-EXEC_CMD_ARGS+='-H x-forwarded-for '                         # command arguments
 EXEC_PRE_SCRIPT=''                                           # execute script before
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Is this service a web server
