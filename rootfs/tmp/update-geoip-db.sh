@@ -34,12 +34,16 @@ SRC_DIR="${BASH_SOURCE%/*}"
 # Set bash options
 set -o pipefail
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+GEOIP_DATA_DIR="${1:-/opt/echoip/geoip}"
+GEOIP_DOWNLOAD_URL="https://github.com/P3TERX/GeoLite.mmdb/raw/download"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 for f in GeoLite2-ASN GeoLite2-City GeoLite2-Country; do
-  if curl -q -LSsf "https://github.com/P3TERX/GeoLite.mmdb/raw/download/$f.mmdb" -o "/opt/echoip/geoip/$f.tmp"; then
-    mv -f "/opt/echoip/geoip/$f.tmp" "/opt/echoip/geoip/$f.mmdb"
-    [ -f "/opt/echoip/geoip/$f.mmdb" ] && echo "Installed $f.mmdb to /opt/echoip/geoip"
+  printf '%s : ' "Attempting to download from $GEOIP_DOWNLOAD_URL/$f.mmdb"
+  if curl -q -LSsf "$GEOIP_DOWNLOAD_URL/$f.mmdb" -o "$GEOIP_DATA_DIR/$f.tmp"; then
+    mv -f "$GEOIP_DATA_DIR/$f.tmp" "$GEOIP_DATA_DIR/$f.mmdb"
+    [ -f "$GEOIP_DATA_DIR/$f.mmdb" ] && echo "Installed to $GEOIP_DATA_DIR/$f.mmdb"
   else
-    echo "Failed to update GeoIP $f"
+    echo "Failed to update $GEOIP_DATA_DIR/$f.mmdb"
     exit 10
   fi
 done

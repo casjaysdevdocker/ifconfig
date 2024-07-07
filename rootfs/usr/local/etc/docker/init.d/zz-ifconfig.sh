@@ -105,7 +105,7 @@ user_name="${IFCONFIG_USER_NAME:-}"      # normal user name
 user_pass="${IFCONFIG_USER_PASS_WORD:-}" # normal user password
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # port which service is listening on
-SERVICE_PORT="8080"
+SERVICE_PORT="80"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # User to use to launch service - IE: postgres
 RUNAS_USER="root" # normally root
@@ -125,7 +125,7 @@ EXEC_CMD_ARGS+='-t /opt/echoip/html '                                       # co
 EXEC_CMD_ARGS+='-a /opt/echoip/geoip/GeoLite2-ASN.mmdb '                    # command arguments
 EXEC_CMD_ARGS+='-c /opt/echoip/geoip/GeoLite2-City.mmdb '                   # command arguments
 EXEC_CMD_ARGS+='-f /opt/echoip/geoip/GeoLite2-Country.mmdb '                # command arguments
-EXEC_PRE_SCRIPT=''                                                          # execute script before
+EXEC_PRE_SCRIPT='sleep 60'                                                  # execute script before
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Is this service a web server
 IS_WEB_SERVER="no"
