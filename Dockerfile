@@ -23,7 +23,7 @@ ARG USER="root"
 ARG DISTRO_VERSION="${IMAGE_VERSION}"
 ARG BUILD_VERSION="${DISTRO_VERSION}"
 
-FROM mpolden/echoip:latest as src
+FROM mpolden/echoip:latest AS src
 FROM tianon/gosu:latest AS gosu
 FROM ${IMAGE_REPO}:${DISTRO_VERSION} AS build
 ARG USER
