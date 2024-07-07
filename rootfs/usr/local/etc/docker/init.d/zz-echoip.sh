@@ -119,7 +119,7 @@ SERVICE_UID="0" # set the user id
 SERVICE_GID="0" # set the group id
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # execute command variables - keep single quotes variables will be expanded later
-EXEC_CMD_BIN='echoip'      # command to execute
+EXEC_CMD_BIN='echoip-cli'  # command to execute
 EXEC_CMD_ARGS=''           # command arguments
 EXEC_PRE_SCRIPT='sleep 60' # execute script before
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
