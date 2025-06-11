@@ -201,15 +201,15 @@ __update_conf_files() {
   [ -d "/data/echoip" ] && cp -Rf "/data/echoip/." "/opt/echoip/"
   sed -i "s|REPLACE_HOST_NAME|$sysname|g" /opt/echoip/html/index.html
   sed -i "s|REPLACE_MODIFIED|$(date +'%Y-%m-%d at %H:%M')|g" /opt/echoip/html/index.html
-  if [ -n "$host_ip_4" ]; then
-    sed -i "s|REPLACE_CURRENT_IP_4|$host_ip_4|g" /opt/echoip/html/index.html
-  else
+  if [ -z "$host_ip_4" ]; then
     sed -i '/REPLACE_CURRENT_IP_4/d' /opt/echoip/html/index.html
-  fi
-  if [ -n "$host_ip_6" ]; then
-    sed -i "s|REPLACE_CURRENT_IP_6|$host_ip_6|g" /opt/echoip/html/index.html
   else
+    sed -i "s|REPLACE_CURRENT_IP_4|$host_ip_4|g" /opt/echoip/html/index.html
+  fi
+  if [ -z "$host_ip_6" ]; then
     sed -i '/REPLACE_CURRENT_IP_6/d' /opt/echoip/html/index.html
+  else
+    sed -i "s|REPLACE_CURRENT_IP_6|$host_ip_6|g" /opt/echoip/html/index.html
   fi
   return $exitCode
 }
