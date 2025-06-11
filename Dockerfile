@@ -65,7 +65,7 @@ ENV TZ="${TIMEZONE}"
 ENV TIMEZONE="${TZ}"
 ENV LANG="${LANGUAGE}"
 ENV TERM="xterm-256color"
-ENV HOSTNAME="casjaysdevdocker-ifconfig"
+ENV HOSTNAME="ifconfig"
 
 USER ${USER}
 WORKDIR /root
@@ -82,8 +82,8 @@ RUN set -e; \
 ENV SHELL="/bin/bash"
 SHELL [ "/bin/bash", "-c" ]
 
-COPY --from=gosu /usr/local/bin/gosu /usr/local/bin/gosu
 COPY --from=src /opt/echoip/. /opt/echoip/
+COPY --from=gosu /usr/local/bin/gosu /usr/local/bin/gosu
 
 RUN echo "Initializing the system"; \
   $SHELL_OPTS; \
@@ -138,9 +138,9 @@ RUN echo "Updating system files "; \
 
 RUN echo "Custom Settings"; \
   $SHELL_OPTS; \
-  wget "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb" -O "/tmp/GeoLite2-ASN.mmdb" || rm -Rf "/tmp/GeoLite2-ASN.mmdb" \
-  wget "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-City.mmdb" -O "/tmp/GeoLite2-City.mmdb" || rm -Rf "/tmp/GeoLite2-City.mmdb" \
-  wget "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb" -O "/tmp/GeoLite2-Country.mmdb" || rm -Rf "/tmp/GeoLite2-Country.mmdb" \
+  wget "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb" -O "/tmp/GeoLite2-ASN.mmdb" || rm -Rf "/tmp/GeoLite2-ASN.mmdb"; \
+  wget "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-City.mmdb" -O "/tmp/GeoLite2-City.mmdb" || rm -Rf "/tmp/GeoLite2-City.mmdb"; \
+  wget "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb" -O "/tmp/GeoLite2-Country.mmdb" || rm -Rf "/tmp/GeoLite2-Country.mmdb"; \
   for mmdb in GeoLite2-ASN.mmdb GeoLite2-City.mmdb GeoLite2-Country.mmdb; do [ -f "/tmp/$mmdb" ] && mv -f "/tmp/$mmdb" "/opt/echoip/geoip/$mmdb"; done \ 
   echo ""
 
