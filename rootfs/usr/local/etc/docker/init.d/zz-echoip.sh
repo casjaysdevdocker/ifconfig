@@ -165,7 +165,7 @@ CMD_ENV=""
 __update_conf_files() {
   local exitCode=0                                               # default exit code
   local sysname="${SERVER_NAME:-${FULL_DOMAIN_NAME:-$HOSTNAME}}" # set hostname
-
+  local host_ip_4="${HOST_IP_4:-CURRENT_IP_4}"
   # CD into temp to bybass any permission errors
   #cd /tmp || false # lets keep shellcheck happy by adding false
 
@@ -198,6 +198,8 @@ __update_conf_files() {
 
   # custom commands
   [ -d "/data/echoip" ] && cp -Rf "/data/echoip/." "/opt/echoip/"
+  sed -i "s|REPLACE_HOST_NAME|$sysname|g" opt/echoip/html/index.html
+  sed -i "s|REPLACE_CURRENT_IP_4|$host_ip_4|g" opt/echoip/html/index.html
   sed -i "s|REPLACE_MODIFIED|$(date +'%Y-%m-%d at %H:%M')|g" /opt/echoip/html/index.html
   return $exitCode
 }
@@ -234,7 +236,7 @@ __pre_execute() {
   done
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   # Replace the applications user and group
-
+  
   # Replace variables
   HOSTNAME="$sysname" __initialize_replace_variables "$ETC_DIR" "$CONF_DIR" "$WWW_ROOT_DIR"
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
