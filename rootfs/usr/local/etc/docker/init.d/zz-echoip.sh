@@ -165,8 +165,8 @@ CMD_ENV=""
 __update_conf_files() {
   local exitCode=0                                               # default exit code
   local sysname="${SERVER_NAME:-${FULL_DOMAIN_NAME:-$HOSTNAME}}" # set hostname
-  local host_ip_4="${HOST_IP_4:-CURRENT_IP_4}"
-  local host_ip_6="${HOST_IP_6:-CURRENT_IP_6}"
+  local host_ip_4="${HOST_IP_4:-$CURRENT_IP_4}"
+  local host_ip_6="${HOST_IP_6:-$CURRENT_IP_6}"
   # CD into temp to bybass any permission errors
   #cd /tmp || false # lets keep shellcheck happy by adding false
 
