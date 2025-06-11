@@ -312,10 +312,15 @@
               <p>
                 Setting the <code>Accept: application/json</code><br />
                 header works as expected. <br />
-                IE: curl -q -LSsf -H "Accept: application/json" -4 { .Host }
+                <span style="font-size: 0.9rem"
+                  >IPV4: curl -q -LSsf -H "Accept: application/json" -4 {{ .Host
+                  }}</span
+                >
                 <br />
-                or: curl -q -LSsf -H "Accept: application/json" -6 { .Host } if
-                you have IPV6
+                <span style="font-size: 0.9rem"
+                  >IPV6: curl -q -LSsf -H "Accept: application/json" -6 {{ .Host
+                  }}</span
+                >
               </p>
 
               <h3>Is automated use of this service permitted?</h3>
