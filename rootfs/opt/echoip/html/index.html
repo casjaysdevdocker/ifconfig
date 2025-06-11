@@ -311,7 +311,11 @@
               <h3>Can I force getting JSON?</h3>
               <p>
                 Setting the <code>Accept: application/json</code><br />
-                header works as expected.
+                header works as expected. <br />
+                IE: curl -q -LSsf -H "Accept: application/json" -4 { .Host }
+                <br />
+                or: curl -q -LSsf -H "Accept: application/json" -6 { .Host } if
+                you have IPV6
               </p>
 
               <h3>Is automated use of this service permitted?</h3>
@@ -341,7 +345,7 @@
                   >https://github.com/casjaysdevdocker/ifconfig</a
                 >.
               </p>
-              <br /><br /><br />
+              <br /><br />
               <h5 class="center">
                 hosted on: REPLACE_HOST_NAME<br />
                 Server IPV4: REPLACE_CURRENT_IP_4<br />
