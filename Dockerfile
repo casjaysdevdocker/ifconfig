@@ -141,7 +141,7 @@ RUN echo "Custom Settings"; \
   wget "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb" -O "/tmp/GeoLite2-ASN.mmdb" || rm -Rf "/tmp/GeoLite2-ASN.mmdb"; \
   wget "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-City.mmdb" -O "/tmp/GeoLite2-City.mmdb" || rm -Rf "/tmp/GeoLite2-City.mmdb"; \
   wget "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb" -O "/tmp/GeoLite2-Country.mmdb" || rm -Rf "/tmp/GeoLite2-Country.mmdb"; \
-  for mmdb in GeoLite2-ASN.mmdb GeoLite2-City.mmdb GeoLite2-Country.mmdb; do [ -f "/tmp/$mmdb" ] && mv -f "/tmp/$mmdb" "/opt/echoip/geoip/$mmdb"; done \ 
+  for mmdb in GeoLite2-ASN.mmdb GeoLite2-City.mmdb GeoLite2-Country.mmdb; do [ -f "/tmp/$mmdb" ] && mv -f "/tmp/$mmdb" "/opt/echoip/geoip/$mmdb"; done; \ 
   echo ""
 
 RUN echo "Setting up users and scripts "; \
