@@ -10,10 +10,7 @@
     />
     <link rel="canonical" href="https://ifconfig.co/" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"
@@ -30,17 +27,14 @@
     {{ template "script.html" . }} {{ template "styles.html" . }}
   </head>
 
-  <body>
+  <body style="margin-left: 1rem; margin-right: 1rem; text-align: center; margin-top: 2rem; margin-bottom: 2rem">
     <div class="content">
       <div class="pure-g gutters center">
         <div class="pure-u-1 pure-u-md-2-3">
           <div class="l-box">
             <h1>What is my IP address?</h1>
             <p><code class="ip">{{ .IP }}</code></p>
-            <p>
-              The best tool to find your own IP address, and information about
-              it.
-            </p>
+            <p>The best tool to find your own IP address, and information about it.</p>
           </div>
         </div>
         <div class="pure-u-1 pure-u-md-1-3">
@@ -50,20 +44,14 @@
               <div class="pure-u pure-u-md-1">
                 <div class="leafcloud-logo">
                   <a href="https://malaks-us.github.io/jason" target="_blank">
-                    <img
-                      src="https://avatars.githubusercontent.com/u/126880?v=4"
-                      width="72"
-                      height="72"
-                    />
+                    <img src="https://avatars.githubusercontent.com/u/126880?v=4" width="72" height="72" />
                   </a>
                 </div>
               </div>
               <div class="pure-u pure-u-md-1">
                 <p>
                   This site is hosted by<br />
-                  <a href="https://casjaysdev.pro" target="_blank">
-                    Casjays Developments
-                  </a>
+                  <a href="https://casjaysdev.pro" target="_blank"> Casjays Developments </a>
                 </p>
               </div>
             </div>
@@ -175,11 +163,8 @@
             </table>
             {{ if .Country }}
             <p>
-              This information is provided from the GeoLite2 database created by
-              MaxMind, available from
-              <a href="https://www.maxmind.com" target="_blank"
-                >www.maxmind.com</a
-              >
+              This information is provided from the GeoLite2 database created by MaxMind, available from
+              <a href="https://www.maxmind.com" target="_blank">www.maxmind.com</a>
             </p>
             {{ end }} {{ if .Latitude }}
             <div class="pure-u-1 pure-u-md-1-1">
@@ -201,62 +186,17 @@
         <div class="pure-u-1 pure-u-md-1-2">
           <div class="l-box">
             <h2>How do I get this programmatically?</h2>
-            <p>
-              With the widget below you can build your query, and see what the
-              result will look like.
-            </p>
+            <p>With the widget below you can build your query, and see what the result will look like.</p>
             <div class="pure-form">
               <!-- COMMAND WIDGET -->
               <div class="input-buttons">
-                <button
-                  name="ip"
-                  class="pure-button widget-select"
-                  onclick="changeInput(this.name, this)"
-                >
-                  ip
-                </button>
-                <button
-                  name="country"
-                  class="pure-button widget-select"
-                  onclick="changeInput(this.name, this)"
-                >
-                  country
-                </button>
-                <button
-                  name="country-iso"
-                  class="pure-button widget-select"
-                  onclick="changeInput(this.name, this)"
-                >
-                  country-iso
-                </button>
-                <button
-                  name="city"
-                  class="pure-button widget-select"
-                  onclick="changeInput(this.name, this)"
-                >
-                  city
-                </button>
-                <button
-                  name="asn"
-                  class="pure-button widget-select"
-                  onclick="changeInput(this.name, this)"
-                >
-                  asn
-                </button>
-                <button
-                  name="json"
-                  class="pure-button widget-select"
-                  onclick="changeInput(this.name, this)"
-                >
-                  json
-                </button>
-                <button
-                  name="port"
-                  class="pure-button widget-select"
-                  onclick="changeInput(this.name, this)"
-                >
-                  port
-                </button>
+                <button name="ip" class="pure-button widget-select" onclick="changeInput(this.name, this)">ip</button>
+                <button name="country" class="pure-button widget-select" onclick="changeInput(this.name, this)">country</button>
+                <button name="country-iso" class="pure-button widget-select" onclick="changeInput(this.name, this)">country-iso</button>
+                <button name="city" class="pure-button widget-select" onclick="changeInput(this.name, this)">city</button>
+                <button name="asn" class="pure-button widget-select" onclick="changeInput(this.name, this)">asn</button>
+                <button name="json" class="pure-button widget-select" onclick="changeInput(this.name, this)">json</button>
+                <button name="port" class="pure-button widget-select" onclick="changeInput(this.name, this)">port</button>
                 <input
                   id="portInput"
                   type="number"
@@ -277,21 +217,9 @@
                 <fieldset>
                   <label for="ipInput">
                     Check another IP (optional)
-                    <input
-                      id="ipInput"
-                      class=""
-                      type="text"
-                      placeholder="IP to query"
-                      onkeyup="updateIP(this.value)"
-                    />
+                    <input id="ipInput" class="" type="text" placeholder="IP to query" onkeyup="updateIP(this.value)" />
                   </label>
-                  <button
-                    type="button"
-                    class="pure-button"
-                    onclick="navigate()"
-                  >
-                    Open
-                  </button>
+                  <button type="button" class="pure-button" onclick="navigate()">Open</button>
                 </fieldset>
               </form>
             </div>
@@ -302,25 +230,19 @@
               <h3>How do I force IPv4 or IPv6 lookup?</h3>
               <p>
                 As of 2018-07-25 it's no longer possible to<br />
-                force protocol using the <i>v4</i> and
-                <i>v6</i> subdomains.<br />
+                force protocol using the <i>v4</i> and <i>v6</i> subdomains.<br />
                 IPv4 or IPv6 still can be forced by passing the<br />
                 appropiate flag to your client,<br />
                 e.g <code>curl -4</code> or <code>curl -6</code>.
               </p>
               <h3>Can I force getting JSON?</h3>
               <p>
-                Setting the <code>Accept: application/json</code><br />
-                header works as expected. <br />
-                <span style="font-size: 0.9rem"
-                  >IPV4: curl -q -LSsf -H "Accept: application/json" -4 {{ .Host
-                  }}</span
-                >
+                <span style="font-size: 1.1rem" style="font-size: 1.1rem">Setting the <code>Accept: application/json</code> header works as expected.</span
+                ><br />
+                <span>IPV4: curl -q -LSsf -H "Accept: application/json" -4 {{ .Host }}</span>
                 <br />
-                <span style="font-size: 0.9rem"
-                  >IPV6: curl -q -LSsf -H "Accept: application/json" -6 {{ .Host
-                  }}</span
-                >
+                <span>IPV6: curl -q -LSsf -H "Accept: application/json" -6 {{ .Host }}</span>
+                <br />
               </p>
 
               <h3>Is automated use of this service permitted?</h3>
@@ -329,34 +251,25 @@
                 The rate limit is in place to ensure a fair service for all.
               </p>
               <p>
-                <em
-                  >Please limit automated requests to 1 <br />
-                  request per minute</em
-                >. No guarantee is made <br />
-                for requests that exceed this limit. They may be <br />
-                rate-limited, with a 429 status code, or dropped entirely.
+                <em>Please limit automated requests to 1 request per minute</em>.<br />
+                No guarantee is made for requests that exceed this limit. <br />
+                They may be rate-limited, with a 429 status code, or dropped entirely.
               </p>
               <h3>Can I run my own service?</h3>
               <p>
                 Yes, the official source code <br />
                 and documentation is available at <br />
-                <a href="https://github.com/mpolden/echoip" target="_blank"
-                  >https://github.com/mpolden/echoip</a
-                >. <br /><br />
+                <a href="https://github.com/mpolden/echoip" target="_blank">https://github.com/mpolden/echoip</a>. <br /><br />
                 My modified code can be found at<br />
-                <a
-                  href="https://github.com/casjaysdevdocker/ifconfig"
-                  target="_blank"
-                  >https://github.com/casjaysdevdocker/ifconfig</a
-                >.
+                <a href="https://github.com/casjaysdevdocker/ifconfig" target="_blank">https://github.com/casjaysdevdocker/ifconfig</a>.
               </p>
               <br /><br />
-              <h5 class="center">
+              <h4 class="center">
                 hosted on: REPLACE_HOST_NAME<br />
                 Server IPV4: REPLACE_CURRENT_IP_4<br />
                 Server IPV6: REPLACE_CURRENT_IP_6<br /><br />
                 Last updated on: REPLACE_MODIFIED<br />
-              </h5>
+              </h4>
             </div>
           </div>
         </div>
