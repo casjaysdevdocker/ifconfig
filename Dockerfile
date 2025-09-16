@@ -1,8 +1,7 @@
-# syntax=docker/dockerfile:1
 # Docker image for ifconfig using the alpine template
 ARG IMAGE_NAME="ifconfig"
 ARG PHP_SERVER="ifconfig"
-ARG BUILD_DATE="202502042129"
+ARG BUILD_DATE="202509161147"
 ARG LANGUAGE="en_US.UTF-8"
 ARG TIMEZONE="America/New_York"
 ARG WWW_ROOT_DIR="/usr/local/share/httpd/default"
@@ -30,7 +29,6 @@ ARG DISTRO_VERSION="${IMAGE_VERSION}"
 ARG BUILD_VERSION="${BUILD_DATE}"
 
 FROM tianon/gosu:latest AS gosu
-FROM mpolden/echoip:latest AS src
 FROM ${PULL_URL}:${DISTRO_VERSION} AS build
 ARG TZ
 ARG USER
@@ -65,14 +63,15 @@ ENV TZ="${TIMEZONE}"
 ENV TIMEZONE="${TZ}"
 ENV LANG="${LANGUAGE}"
 ENV TERM="xterm-256color"
-ENV HOSTNAME="ifconfig"
+ENV HOSTNAME="casjaysdevdocker-ifconfig"
 
 USER ${USER}
 WORKDIR /root
 
 COPY ./rootfs/usr/local/bin/. /usr/local/bin/
 
-RUN echo "Updating the system and ensuring bash is installed"; \
+RUN set -e; \
+  echo "Updating the system and ensuring bash is installed"; \
   pkmgr update;pkmgr install bash
 
 RUN set -e; \
@@ -82,7 +81,6 @@ RUN set -e; \
 ENV SHELL="/bin/bash"
 SHELL [ "/bin/bash", "-c" ]
 
-COPY --from=src /opt/echoip/. /opt/echoip/
 COPY --from=gosu /usr/local/bin/gosu /usr/local/bin/gosu
 
 RUN echo "Initializing the system"; \
@@ -138,11 +136,7 @@ RUN echo "Updating system files "; \
 
 RUN echo "Custom Settings"; \
   $SHELL_OPTS; \
-  wget "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb" -O "/tmp/GeoLite2-ASN.mmdb" || rm -Rf "/tmp/GeoLite2-ASN.mmdb"; \
-  wget "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-City.mmdb" -O "/tmp/GeoLite2-City.mmdb" || rm -Rf "/tmp/GeoLite2-City.mmdb"; \
-  wget "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb" -O "/tmp/GeoLite2-Country.mmdb" || rm -Rf "/tmp/GeoLite2-Country.mmdb"; \
-  for mmdb in GeoLite2-ASN.mmdb GeoLite2-City.mmdb GeoLite2-Country.mmdb; do [ -f "/tmp/$mmdb" ] && mv -f "/tmp/$mmdb" "/opt/echoip/geoip/$mmdb"; done; \ 
-  echo ""
+echo ""
 
 RUN echo "Setting up users and scripts "; \
   $SHELL_OPTS; \
@@ -159,7 +153,7 @@ RUN echo "Setting OS Settings "; \
 
 RUN echo "Custom Applications"; \
   $SHELL_OPTS; \
-  echo ""
+echo ""
 
 RUN echo "Running custom commands"; \
   if [ -f "/root/docker/setup/05-custom.sh" ];then echo "Running the custom script";/root/docker/setup/05-custom.sh||{ echo "Failed to execute /root/docker/setup/05-custom.sh" && exit 10; };echo "Done running the custom script";fi; \
@@ -225,8 +219,8 @@ LABEL org.opencontainers.image.authors="${LICENSE}"
 LABEL org.opencontainers.image.created="${BUILD_DATE}"
 LABEL org.opencontainers.image.version="${BUILD_VERSION}"
 LABEL org.opencontainers.image.schema-version="${BUILD_VERSION}"
-LABEL org.opencontainers.image.url="https://hub.docker.com/r/casjaysdevdocker/ifconfig"
-LABEL org.opencontainers.image.source="https://hub.docker.com/r/casjaysdevdocker/ifconfig"
+LABEL org.opencontainers.image.url="docker.io"
+LABEL org.opencontainers.image.source="docker.io"
 LABEL org.opencontainers.image.vcs-type="Git"
 LABEL org.opencontainers.image.revision="${BUILD_VERSION}"
 LABEL org.opencontainers.image.source="https://github.com/casjaysdevdocker/ifconfig"
@@ -258,6 +252,5 @@ VOLUME [ "/config","/data" ]
 
 EXPOSE ${SERVICE_PORT} ${ENV_PORTS}
 
-CMD [ "tail", "-f", "/dev/null" ]
-ENTRYPOINT [ "tini","--","/usr/local/bin/entrypoint.sh" ]
+ENTRYPOINT [ "tini","--","/usr/local/bin/entrypoint.sh" "start" ]
 HEALTHCHECK --start-period=10m --interval=5m --timeout=15s CMD [ "/usr/local/bin/entrypoint.sh", "healthcheck" ]
