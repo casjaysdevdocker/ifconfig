@@ -19,8 +19,8 @@ dockermgr update ifconfig
 ## Install and run container
   
 ```shell
-dockerHome="/var/lib/srv/$USER/docker/casjaysdevdocker/ifconfig/ifconfig/latest/rootfs"
-mkdir -p "/var/lib/srv/$USER/docker/ifconfig/rootfs"
+dockerHome="/srv/$USER/docker/casjaysdevdocker/ifconfig/ifconfig/latest/rootfs"
+mkdir -p "/srv/$USER/docker/ifconfig/rootfs"
 git clone "https://github.com/dockermgr/ifconfig" "$HOME/.local/share/CasjaysDev/dockermgr/ifconfig"
 cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/ifconfig/rootfs/." "$dockerHome/"
 docker run -d \
@@ -47,8 +47,8 @@ services:
       - TZ=America/New_York
       - HOSTNAME=ifconfig
     volumes:
-      - "/var/lib/srv/$USER/docker/casjaysdevdocker/ifconfig/ifconfig/latest/rootfs/data:/data:z"
-      - "/var/lib/srv/$USER/docker/casjaysdevdocker/ifconfig/ifconfig/latest/rootfs/config:/config:z"
+      - "/srv/$USER/docker/casjaysdevdocker/ifconfig/ifconfig/latest/rootfs/data:/data:z"
+      - "/srv/$USER/docker/casjaysdevdocker/ifconfig/ifconfig/latest/rootfs/config:/config:z"
     ports:
       - 80:80
     restart: always
